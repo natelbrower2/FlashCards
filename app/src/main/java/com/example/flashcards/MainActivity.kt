@@ -44,17 +44,16 @@ class MainActivity : ComponentActivity() {
 @Preview(showSystemUi = true)
 @Composable
 fun FlashCardApp() {
-    TextBoxWithButtons(modifier = Modifier
-//        .fillMaxSize()
+    AppLayout(modifier = Modifier
         .wrapContentSize(Alignment.Center))
 }
 
 private fun keepIndexInRange(index: Int, length: Int): Int {
     return if (index >= length) {
-        0
+        0 // return 0 if the index was too high
     }
     else if (index < 0) {
-        length - 1
+        length - 2
     }
     else {
         index
@@ -63,12 +62,10 @@ private fun keepIndexInRange(index: Int, length: Int): Int {
 
 @SuppressLint("MutableCollectionMutableState")
 @Composable
-fun TextBoxWithButtons(modifier: Modifier = Modifier) {
+fun AppLayout(modifier: Modifier = Modifier) {
     var index by remember { mutableIntStateOf(0) }
-//    val frontTextContent: MutableState<String> = mutableStateOf("Front side of flash card")
     var frontTextContent by remember { mutableStateOf("") }
     var backTextContent by remember { mutableStateOf("") }
-//    val flashCardItems = mutableListOf("Front1", "Back1","Front2", "Back2","Front3", "Back3")
     val flashCardItems by remember { mutableStateOf(mutableListOf<String>())}
     Column (
         modifier = modifier
